@@ -43,6 +43,7 @@ class PCREWalker : public Regexp::Walker<bool> {
                          bool* child_args, int nchild_args);
 
   virtual bool ShortVisit(Regexp* re, bool a) {
+    (void)re;
     // Should never be called: we use Walk(), not WalkExponential().
 #ifndef FUZZING_BUILD_MODE_UNSAFE_FOR_PRODUCTION
     LOG(DFATAL) << "PCREWalker::ShortVisit called";
@@ -60,6 +61,8 @@ class PCREWalker : public Regexp::Walker<bool> {
 // this library mimics PCRE for those subexpressions.
 bool PCREWalker::PostVisit(Regexp* re, bool parent_arg, bool pre_arg,
                            bool* child_args, int nchild_args) {
+  (void)parent_arg;
+  (void)pre_arg;
   // If children failed, so do we.
   for (int i = 0; i < nchild_args; i++)
     if (!child_args[i])
@@ -127,6 +130,7 @@ class EmptyStringWalker : public Regexp::Walker<bool> {
                          bool* child_args, int nchild_args);
 
   virtual bool ShortVisit(Regexp* re, bool a) {
+    (void)re;
     // Should never be called: we use Walk(), not WalkExponential().
 #ifndef FUZZING_BUILD_MODE_UNSAFE_FOR_PRODUCTION
     LOG(DFATAL) << "EmptyStringWalker::ShortVisit called";
@@ -145,6 +149,9 @@ class EmptyStringWalker : public Regexp::Walker<bool> {
 // empty string.
 bool EmptyStringWalker::PostVisit(Regexp* re, bool parent_arg, bool pre_arg,
                                   bool* child_args, int nchild_args) {
+  (void)re;
+  (void)parent_arg;
+  (void)pre_arg;
   switch (re->op()) {
     case kRegexpNoMatch:               // never empty
     case kRegexpLiteral:

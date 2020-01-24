@@ -802,6 +802,7 @@ void Compiler::AddRuneRangeUTF8(Rune lo, Rune hi, bool foldcase) {
 
 // Should not be called.
 Frag Compiler::Copy(Frag arg) {
+  (void)arg;
   // We're using WalkExponential; there should be no copying.
   LOG(DFATAL) << "Compiler::Copy called!";
   failed_ = true;
@@ -811,12 +812,14 @@ Frag Compiler::Copy(Frag arg) {
 // Visits a node quickly; called once WalkExponential has
 // decided to cut this walk short.
 Frag Compiler::ShortVisit(Regexp* re, Frag) {
+  (void)re;
   failed_ = true;
   return NoMatch();
 }
 
 // Called before traversing a node's children during the walk.
 Frag Compiler::PreVisit(Regexp* re, Frag, bool* stop) {
+  (void)re;
   // Cut off walk if we've already failed.
   if (failed_)
     *stop = true;

@@ -56,6 +56,7 @@ void Prog::Inst::InitMatch(int32_t id) {
 }
 
 void Prog::Inst::InitNop(uint32_t out) {
+  (void)out;
   DCHECK_EQ(out_opcode_, 0);
   set_opcode(kInstNop);
 }

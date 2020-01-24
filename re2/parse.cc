@@ -531,6 +531,7 @@ class RepetitionWalker : public Regexp::Walker<int> {
 };
 
 int RepetitionWalker::PreVisit(Regexp* re, int parent_arg, bool* stop) {
+  (void)stop;
   int arg = parent_arg;
   if (re->op() == kRegexpRepeat) {
     int m = re->max();
@@ -546,6 +547,8 @@ int RepetitionWalker::PreVisit(Regexp* re, int parent_arg, bool* stop) {
 
 int RepetitionWalker::PostVisit(Regexp* re, int parent_arg, int pre_arg,
                                 int* child_args, int nchild_args) {
+  (void)re;
+  (void)parent_arg;
   int arg = pre_arg;
   for (int i = 0; i < nchild_args; i++) {
     if (child_args[i] < arg) {
@@ -556,6 +559,8 @@ int RepetitionWalker::PostVisit(Regexp* re, int parent_arg, int pre_arg,
 }
 
 int RepetitionWalker::ShortVisit(Regexp* re, int parent_arg) {
+  (void)re;
+  (void)parent_arg;
   // Should never be called: we use Walk(), not WalkExponential().
 #ifndef FUZZING_BUILD_MODE_UNSAFE_FOR_PRODUCTION
   LOG(DFATAL) << "RepetitionWalker::ShortVisit called";
@@ -1029,6 +1034,7 @@ int Regexp::FactorAlternation(Regexp** sub, int nsub, ParseFlags flags) {
 void FactorAlternationImpl::Round1(Regexp** sub, int nsub,
                                    Regexp::ParseFlags flags,
                                    std::vector<Splice>* splices) {
+  (void)flags;
   // Round 1: Factor out common literal prefixes.
   int start = 0;
   Rune* rune = NULL;
@@ -1081,6 +1087,7 @@ void FactorAlternationImpl::Round1(Regexp** sub, int nsub,
 void FactorAlternationImpl::Round2(Regexp** sub, int nsub,
                                    Regexp::ParseFlags flags,
                                    std::vector<Splice>* splices) {
+  (void)flags;
   // Round 2: Factor out common simple prefixes,
   // just the first piece of each concatenation.
   // This will be good enough a lot of the time.

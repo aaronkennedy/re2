@@ -248,6 +248,8 @@ class SparseArray {
 
   // Initializes memory for elements [min, max).
   void MaybeInitializeMemory(int min, int max) {
+      (void)min;
+      (void)max;
 #if __has_feature(memory_sanitizer)
     __msan_unpoison(sparse_.data() + min, (max - min) * sizeof sparse_[0]);
 #elif defined(RE2_ON_VALGRIND)

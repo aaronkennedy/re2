@@ -102,6 +102,8 @@ template<typename T> class Regexp::Walker {
 template<typename T> T Regexp::Walker<T>::PreVisit(Regexp* re,
                                                    T parent_arg,
                                                    bool* stop) {
+  (void)re;
+  (void)stop;
   return parent_arg;
 }
 
@@ -110,6 +112,10 @@ template<typename T> T Regexp::Walker<T>::PostVisit(Regexp* re,
                                                     T pre_arg,
                                                     T* child_args,
                                                     int nchild_args) {
+  (void)re;
+  (void)parent_arg;
+  (void)child_args;
+  (void)nchild_args;
   return pre_arg;
 }
 

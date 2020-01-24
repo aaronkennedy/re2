@@ -212,6 +212,7 @@ Regexp* CoalesceWalker::Copy(Regexp* re) {
 }
 
 Regexp* CoalesceWalker::ShortVisit(Regexp* re, Regexp* parent_arg) {
+  (void)parent_arg;
   // Should never be called: we use Walk(), not WalkExponential().
 #ifndef FUZZING_BUILD_MODE_UNSAFE_FOR_PRODUCTION
   LOG(DFATAL) << "CoalesceWalker::ShortVisit called";
@@ -224,6 +225,9 @@ Regexp* CoalesceWalker::PostVisit(Regexp* re,
                                   Regexp* pre_arg,
                                   Regexp** child_args,
                                   int nchild_args) {
+  (void)parent_arg;
+  (void)pre_arg;
+  (void)nchild_args;
   if (re->nsub() == 0)
     return re->Incref();
 
@@ -438,6 +442,7 @@ Regexp* SimplifyWalker::Copy(Regexp* re) {
 }
 
 Regexp* SimplifyWalker::ShortVisit(Regexp* re, Regexp* parent_arg) {
+  (void)parent_arg;
   // Should never be called: we use Walk(), not WalkExponential().
 #ifndef FUZZING_BUILD_MODE_UNSAFE_FOR_PRODUCTION
   LOG(DFATAL) << "SimplifyWalker::ShortVisit called";
@@ -446,6 +451,7 @@ Regexp* SimplifyWalker::ShortVisit(Regexp* re, Regexp* parent_arg) {
 }
 
 Regexp* SimplifyWalker::PreVisit(Regexp* re, Regexp* parent_arg, bool* stop) {
+  (void)parent_arg;
   if (re->simple()) {
     *stop = true;
     return re->Incref();
@@ -458,6 +464,9 @@ Regexp* SimplifyWalker::PostVisit(Regexp* re,
                                   Regexp* pre_arg,
                                   Regexp** child_args,
                                   int nchild_args) {
+  (void)parent_arg;
+  (void)pre_arg;
+  (void)nchild_args;
   switch (re->op()) {
     case kRegexpNoMatch:
     case kRegexpEmptyMatch:

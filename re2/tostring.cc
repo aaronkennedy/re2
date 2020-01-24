@@ -42,6 +42,8 @@ class ToStringWalker : public Regexp::Walker<int> {
   virtual int PostVisit(Regexp* re, int parent_arg, int pre_arg,
                         int* child_args, int nchild_args);
   virtual int ShortVisit(Regexp* re, int parent_arg) {
+    (void)re;
+    (void)parent_arg;
     return 0;
   }
 
@@ -66,6 +68,7 @@ std::string Regexp::ToString() {
 // Visits re before children are processed.
 // Appends ( if needed and passes new precedence to children.
 int ToStringWalker::PreVisit(Regexp* re, int parent_arg, bool* stop) {
+  (void)stop;
   int prec = parent_arg;
   int nprec = PrecAtom;
 
@@ -146,6 +149,9 @@ static void AppendLiteral(std::string *t, Rune r, bool foldcase) {
 // For regexps with children, append any unary suffixes or ).
 int ToStringWalker::PostVisit(Regexp* re, int parent_arg, int pre_arg,
                               int* child_args, int nchild_args) {
+  (void)pre_arg;
+  (void)child_args;
+  (void)nchild_args;
   int prec = parent_arg;
   switch (re->op()) {
     case kRegexpNoMatch:

@@ -950,6 +950,8 @@ bool RE2::Rewrite(std::string* out,
 /***** Parsers for various types *****/
 
 bool RE2::Arg::parse_null(const char* str, size_t n, void* dest) {
+  (void)str;
+  (void)n;
   // We fail if somebody asked us to store into a non-NULL void* pointer
   return (dest == NULL);
 }

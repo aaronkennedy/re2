@@ -519,6 +519,8 @@ Prefilter::Info* Prefilter::BuildInfo(Regexp* re) {
 
 Prefilter::Info* Prefilter::Info::Walker::ShortVisit(
     Regexp* re, Prefilter::Info* parent_arg) {
+  (void)re;
+  (void)parent_arg;
   return AnyMatch();
 }
 
@@ -528,6 +530,8 @@ Prefilter::Info* Prefilter::Info::Walker::PostVisit(
     Regexp* re, Prefilter::Info* parent_arg,
     Prefilter::Info* pre_arg, Prefilter::Info** child_args,
     int nchild_args) {
+  (void)parent_arg;
+  (void)pre_arg;
   Prefilter::Info *info;
   switch (re->op()) {
     default:
